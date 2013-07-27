@@ -17,7 +17,7 @@
 
 from PyQt4 import QtCore, QtGui, QtWebKit
 
-#from .defwebviewui import DefWebView
+from .webviewui import WebView
 
 class MainWindowUI(object):
 
@@ -42,7 +42,7 @@ class MainWindowUI(object):
         resultwordlabel.setText("")
         horizontallayout.addWidget(resultwordlabel)
 
-        webview = DefWebView(self.centralwidget)
+        webview = WebView(self.centralwidget)
         webview.setObjectName(webviewobjectname)
         webview.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         dictlabel.setBuddy(webview)
@@ -102,33 +102,33 @@ class MainWindowUI(object):
         self.japdichorizlayout = QtGui.QHBoxLayout()
         self.japdichorizlayout.setObjectName("japdichorizlayout")
 
-        #self.daijisenverticallayout, self.daijisenlabel, self.daijisenresultwordlabel, \
-        #        self.daijisendefwebview = self.createlist("daijisenverticallayout",
-        #                "daijisenhorizontallayout", "daijisenresultwordlabel",
-        #                "daijisenlabel", "daijisentextedit", u'大辞泉')
-        #self.japdichorizlayout.addLayout(self.daijisenverticallayout)
-        #self.daijirinverticallayout, self.daijirinlabel, self.daijirinresultwordlabel, \
-        #        self.daijirindefwebview = self.createlist("daijirinverticallayout",
-        #                "daijirinhorizontallayout", "daijirinresultwordlabel",
-        #                "daijirinlabel", "daijirintextedit", u'大辞林')
-        #self.japdichorizlayout.addLayout(self.daijirinverticallayout)
-        #self.tabonevertlayout.addLayout(self.japdichorizlayout, 2)
+        self.daijisenverticallayout, self.daijisenlabel, self.daijisenresultwordlabel, \
+                self.daijisendefwebview = self.createlist("daijisenverticallayout",
+                        "daijisenhorizontallayout", "daijisenresultwordlabel",
+                        "daijisenlabel", "daijisentextedit", u'大辞泉')
+        self.japdichorizlayout.addLayout(self.daijisenverticallayout)
+        self.daijirinverticallayout, self.daijirinlabel, self.daijirinresultwordlabel, \
+                self.daijirindefwebview = self.createlist("daijirinverticallayout",
+                        "daijirinhorizontallayout", "daijirinresultwordlabel",
+                        "daijirinlabel", "daijirintextedit", u'大辞林')
+        self.japdichorizlayout.addLayout(self.daijirinverticallayout)
+        self.tabonevertlayout.addLayout(self.japdichorizlayout, 2)
 
         # this is the horizontal layout that holds the two english dictionaries
         self.engdichorizlayout = QtGui.QHBoxLayout()
         self.engdichorizlayout.setObjectName("engdichorizlayout")
 
-        #self.newcenturyvertlayout, self.newcenturylabel, self.newcenturyresultwordlabel, \
-        #        self.newcenturydefwebview = self.createlist("newcenturyvertlayout",
-        #                "newcenturyhorizontallayout", "newcenturyresultwordlabel",
-        #                "newcenturylabel", "newcenturytextedit", "New Century")
-        #self.engdichorizlayout.addLayout(self.newcenturyvertlayout)
-        #self.progressvertlayout, self.progresslabel, self.progressresultwordlabel, \
-        #        self.progressdefwebview = self.createlist("progressvertlayout",
-        #                "progresshorizontallayout", "progressresultwordlabel",
-        #                "progresslabel", "progresstextedit", "Progressive")
-        #self.engdichorizlayout.addLayout(self.progressvertlayout)
-        #self.tabonevertlayout.addLayout(self.engdichorizlayout, 3)
+        self.newcenturyvertlayout, self.newcenturylabel, self.newcenturyresultwordlabel, \
+                self.newcenturydefwebview = self.createlist("newcenturyvertlayout",
+                        "newcenturyhorizontallayout", "newcenturyresultwordlabel",
+                        "newcenturylabel", "newcenturytextedit", "New Century")
+        self.engdichorizlayout.addLayout(self.newcenturyvertlayout)
+        self.progressvertlayout, self.progresslabel, self.progressresultwordlabel, \
+                self.progressdefwebview = self.createlist("progressvertlayout",
+                        "progresshorizontallayout", "progressresultwordlabel",
+                        "progresslabel", "progresstextedit", "Progressive")
+        self.engdichorizlayout.addLayout(self.progressvertlayout)
+        self.tabonevertlayout.addLayout(self.engdichorizlayout, 3)
 
         # horizontal layout that holds the accent and OKAY/CANCEL buttons
         self.bottomhorizlayout = QtGui.QHBoxLayout()
