@@ -180,18 +180,18 @@ class MainWindowUI(object):
         self.menuBar.addAction(self.menuFile.menuAction())
 
         # four additional tabs for additional pages
-        #self.daijisentab, self.daijisentabvertlayout, self.daijisenwebview = self.createtab(
-        #        "daijisentab", "daijisentabvertlayout", "daijisenwebview")
-        #self.tabwidget.addTab(self.daijisentab, u'大辞泉')
-        #self.daijirintab, self.daijirintabvertlayout, self.daijirinwebview = self.createtab(
-        #        "daijirintab", "daijirintabvertlayout", "daijirinwebview")
-        #self.tabwidget.addTab(self.daijirintab, u'大辞林')
-        #self.newcentytab, self.newcentytabvertlayout, self.newcentywebview = self.createtab(
-        #        "newcentytab", "newcentytabvertlayout", "newcentywebview")
-        #self.tabwidget.addTab(self.newcentytab, "New Century")
-        #self.progresstab, self.progresstabvertlayout, self.progresswebview = self.createtab(
-        #        "progresstab", "progresstabvertlayout", "progresswebview")
-        #self.tabwidget.addTab(self.progresstab, "Progressive")
+        self.daijisentab, self.daijisentabvertlayout, self.daijisenwebview = self.createtab(
+                "daijisentab", "daijisentabvertlayout", "daijisenwebview")
+        self.tabwidget.addTab(self.daijisentab, u'大辞泉')
+        self.daijirintab, self.daijirintabvertlayout, self.daijirinwebview = self.createtab(
+                "daijirintab", "daijirintabvertlayout", "daijirinwebview")
+        self.tabwidget.addTab(self.daijirintab, u'大辞林')
+        self.newcentytab, self.newcentytabvertlayout, self.newcentywebview = self.createtab(
+                "newcentytab", "newcentytabvertlayout", "newcentywebview")
+        self.tabwidget.addTab(self.newcentytab, "New Century")
+        self.progresstab, self.progresstabvertlayout, self.progresswebview = self.createtab(
+                "progresstab", "progresstabvertlayout", "progresswebview")
+        self.tabwidget.addTab(self.progresstab, "Progressive")
 
         mainwindowselector.setCentralWidget(self.centralwidget)
         mainwindowselector.setWindowTitle("JDicScrape")

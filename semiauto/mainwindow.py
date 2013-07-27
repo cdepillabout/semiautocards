@@ -23,6 +23,7 @@ from .ui.mainwindowui import MainWindowUI
 
 #from dictscrape import DaijirinDictionary, DaijisenDictionary, \
 #        ProgressiveDictionary, NewCenturyDictionary
+from .dictionary import WebYahooDaijisenDict
 
 class MainWindow(QtGui.QMainWindow):
 
