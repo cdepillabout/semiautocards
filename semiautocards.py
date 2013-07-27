@@ -20,22 +20,16 @@
 
 import sys
 from PyQt4 import QtGui, QtCore
-#from yomi_base.lang import japanese
-#from yomi_base.preference_data import Preferences
-#from yomi_base.reader import MainWindowReader
 
+from anki.hooks import wrap
+from aqt.editor import Editor
+from aqt.utils import showCritical
 
-class Semiauto:
+from semiauto import anki_host
+from semiauto.mainwindow import MainWindow
+
+class SemiautoPlugin(object):
     def __init__(self):
-        #self.language = japanese.initLanguage()
-        #self.preferences = Preferences()
-        #self.preferences.load()
-        pass
-
-
-class SemiautoPlugin(Semiauto):
-    def __init__(self):
-        Semiauto.__init__(self)
 
         self.toolIconVisible = False
         self.window = None
@@ -44,73 +38,42 @@ class SemiautoPlugin(Semiauto):
 
         self.setup()
 
-        #separator = QtGui.QAction(self.parent)
-        #separator.setSeparator(True)
-        #self.anki.addUiAction(separator)
-
-        #action = QtGui.QAction(QtGui.QIcon(':/img/img/icon_logo_32.png'), '&Semiauto...', self.parent)
-        #action.setIconVisibleInMenu(True)
-        #action.setShortcut('Ctrl+Y')
-        #action.triggered.connect(self.onShowRequest)
-        #self.anki.addUiAction(action)
-
-    def setupbuttons(self):
-        from anki.hooks import wrap
-        from aqt.editor import Editor
-        from aqt.utils import showInfo
-
-        def buttonPressed(self):
-            showInfo("pressed " + `self`)
-        def mySetupButtons(self):
+    def setup(self):
+        def mySetupButtons(editor):
             # - size=False tells Anki not to use a small button
-            # - the lambda is necessary to pass the editor instance to the
-            #   callback, as we're passing in a function rather than a bound
-            #   method
-            self._addButton("semiautobutton", lambda s=self: buttonPressed(self),
+            editor._addButton("semiautobutton", lambda editor=editor: self.launchGUI(editor),
                             text="Semi Auto", size=False)
+            shortcut = QtGui.QShortcut(QtGui.QKeySequence(_("Ctrl+j")), editor.parentWindow)
+            shortcut.connect(shortcut, QtCore.SIGNAL("activated()"),
+                    lambda editor=editor: self.launchGUI(editor))
 
         Editor.setupButtons = wrap(Editor.setupButtons, mySetupButtons)
 
+    def launchGUI(self, editor):
+        editor.saveNow()
+        note = editor.note
 
-    def onShowRequest(self):
-        if self.window:
-            self.window.setVisible(True)
-            self.window.activateWindow()
-        else:
-            self.window = MainWindowReader(
-                self.parent,
-                self.preferences,
-                self.language,
-                None,
-                self.anki,
-                self.onWindowClose
-            )
-            self.window.show()
+        if not note:
+            showCritical("ERROR! Must have note selected.")
+            return
 
+        note.flush()
+        kanji = note["Vocab"]
+        kana = note["VocabKana"]
+
+        self.window = MainWindow(kanji, kana, parent=editor.widget,
+                editor=editor, note=note)
+        self.window.show()
+        #if self.window:
+        #    self.window.setVisible(True)
+        #    self.window.activateWindow()
+        #else:
+        #    self.window = MainWindowReader(self.parent, kanji, kana)
+        #    self.window.show()
 
     def onWindowClose(self):
         self.window = None
 
 
-class SemiautoStandalone(Semiauto):
-    def __init__(self):
-        Semiauto.__init__(self)
-
-        self.application = QtGui.QApplication(sys.argv)
-        self.window = MainWindowReader(
-            None,
-            self.preferences,
-            self.language,
-            filename=sys.argv[1] if len(sys.argv) >= 2 else None
-        )
-
-        self.window.show()
-        self.application.exec_()
-
-
-if __name__ == '__main__':
-    instance = SemiautoStandalone()
-else:
-    from yomi_base import anki_host
-    instance = SemiautoPlugin()
+SemiautoPlugin()
 
