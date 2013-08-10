@@ -107,28 +107,28 @@ class MainWindowUI(object):
                         "daijisenhorizontallayout", "daijisenresultwordlabel",
                         "daijisenlabel", "daijisentextedit", u'大辞泉')
         self.japdichorizlayout.addLayout(self.daijisenverticallayout)
-        self.daijirinverticallayout, self.daijirinlabel, self.daijirinresultwordlabel, \
-                self.daijirindefwebview = self.createlist("daijirinverticallayout",
-                        "daijirinhorizontallayout", "daijirinresultwordlabel",
-                        "daijirinlabel", "daijirintextedit", u'大辞林')
-        self.japdichorizlayout.addLayout(self.daijirinverticallayout)
+        #self.daijirinverticallayout, self.daijirinlabel, self.daijirinresultwordlabel, \
+        #        self.daijirindefwebview = self.createlist("daijirinverticallayout",
+        #                "daijirinhorizontallayout", "daijirinresultwordlabel",
+        #                "daijirinlabel", "daijirintextedit", u'大辞林')
+        #self.japdichorizlayout.addLayout(self.daijirinverticallayout)
         self.tabonevertlayout.addLayout(self.japdichorizlayout, 2)
 
         # this is the horizontal layout that holds the two english dictionaries
-        self.engdichorizlayout = QtGui.QHBoxLayout()
-        self.engdichorizlayout.setObjectName("engdichorizlayout")
+        #self.engdichorizlayout = QtGui.QHBoxLayout()
+        #self.engdichorizlayout.setObjectName("engdichorizlayout")
 
-        self.newcenturyvertlayout, self.newcenturylabel, self.newcenturyresultwordlabel, \
-                self.newcenturydefwebview = self.createlist("newcenturyvertlayout",
-                        "newcenturyhorizontallayout", "newcenturyresultwordlabel",
-                        "newcenturylabel", "newcenturytextedit", "New Century")
-        self.engdichorizlayout.addLayout(self.newcenturyvertlayout)
-        self.progressvertlayout, self.progresslabel, self.progressresultwordlabel, \
-                self.progressdefwebview = self.createlist("progressvertlayout",
-                        "progresshorizontallayout", "progressresultwordlabel",
-                        "progresslabel", "progresstextedit", "Progressive")
-        self.engdichorizlayout.addLayout(self.progressvertlayout)
-        self.tabonevertlayout.addLayout(self.engdichorizlayout, 3)
+        #self.newcenturyvertlayout, self.newcenturylabel, self.newcenturyresultwordlabel, \
+        #        self.newcenturydefwebview = self.createlist("newcenturyvertlayout",
+        #                "newcenturyhorizontallayout", "newcenturyresultwordlabel",
+        #                "newcenturylabel", "newcenturytextedit", "New Century")
+        #self.engdichorizlayout.addLayout(self.newcenturyvertlayout)
+        #self.progressvertlayout, self.progresslabel, self.progressresultwordlabel, \
+        #        self.progressdefwebview = self.createlist("progressvertlayout",
+        #                "progresshorizontallayout", "progressresultwordlabel",
+        #                "progresslabel", "progresstextedit", "Progressive")
+        #self.engdichorizlayout.addLayout(self.progressvertlayout)
+        #self.tabonevertlayout.addLayout(self.engdichorizlayout, 3)
 
         # horizontal layout that holds the accent and OKAY/CANCEL buttons
         self.bottomhorizlayout = QtGui.QHBoxLayout()
@@ -180,21 +180,21 @@ class MainWindowUI(object):
         self.menuBar.addAction(self.menuFile.menuAction())
 
         # four additional tabs for additional pages
-        self.daijisentab, self.daijisentabvertlayout, self.daijisenwebview = self.createtab(
-                "daijisentab", "daijisentabvertlayout", "daijisenwebview")
-        self.tabwidget.addTab(self.daijisentab, u'大辞泉')
-        self.daijirintab, self.daijirintabvertlayout, self.daijirinwebview = self.createtab(
-                "daijirintab", "daijirintabvertlayout", "daijirinwebview")
-        self.tabwidget.addTab(self.daijirintab, u'大辞林')
-        self.newcentytab, self.newcentytabvertlayout, self.newcentywebview = self.createtab(
-                "newcentytab", "newcentytabvertlayout", "newcentywebview")
-        self.tabwidget.addTab(self.newcentytab, "New Century")
-        self.progresstab, self.progresstabvertlayout, self.progresswebview = self.createtab(
-                "progresstab", "progresstabvertlayout", "progresswebview")
-        self.tabwidget.addTab(self.progresstab, "Progressive")
+        #self.daijisentab, self.daijisentabvertlayout, self.daijisenwebview = self.createtab(
+        #        "daijisentab", "daijisentabvertlayout", "daijisenwebview")
+        #self.tabwidget.addTab(self.daijisentab, u'大辞泉')
+        #self.daijirintab, self.daijirintabvertlayout, self.daijirinwebview = self.createtab(
+        #        "daijirintab", "daijirintabvertlayout", "daijirinwebview")
+        #self.tabwidget.addTab(self.daijirintab, u'大辞林')
+        #self.newcentytab, self.newcentytabvertlayout, self.newcentywebview = self.createtab(
+        #        "newcentytab", "newcentytabvertlayout", "newcentywebview")
+        #self.tabwidget.addTab(self.newcentytab, "New Century")
+        #self.progresstab, self.progresstabvertlayout, self.progresswebview = self.createtab(
+        #        "progresstab", "progresstabvertlayout", "progresswebview")
+        #self.tabwidget.addTab(self.progresstab, "Progressive")
 
         mainwindowselector.setCentralWidget(self.centralwidget)
-        mainwindowselector.setWindowTitle("JDicScrape")
+        mainwindowselector.setWindowTitle("Semi Auto Cards")
 
         # okay button (new style signals)
         self.buttonBox.accepted.connect(mainwindowselector.okay)

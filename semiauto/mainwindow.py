@@ -24,6 +24,7 @@ from .ui.mainwindowui import MainWindowUI
 #from dictscrape import DaijirinDictionary, DaijisenDictionary, \
 #        ProgressiveDictionary, NewCenturyDictionary
 from .dictionary import WebYahooDaijisenDict
+from .utils import abbreviate
 
 class MainWindow(QtGui.QMainWindow):
 
@@ -36,7 +37,7 @@ class MainWindow(QtGui.QMainWindow):
         self.note = note
         self.ui = MainWindowUI()
         self.ui.setupUi(self)
-        #self.fillin(word_kanji, word_kana)
+        self.fillin(word_kanji, word_kana)
 
     def exit(self):
         """
@@ -56,12 +57,13 @@ class MainWindow(QtGui.QMainWindow):
         # this shows the sender (but in this case it will only be the reset button)
         #sender = self.mainwindowselector.sender()
         webviews = [self.ui.daijisendefwebview,
-                self.ui.daijirindefwebview,
-                self.ui.newcenturydefwebview,
-                self.ui.progressdefwebview]
+                #self.ui.daijirindefwebview,
+                #self.ui.newcenturydefwebview,
+                #self.ui.progressdefwebview,
+                ]
         for w in webviews:
             mainframe = w.page().mainFrame()
-            mainframe.evaluateJavaScript(u"resetAll()")
+            #mainframe.evaluateJavaScript(u"resetAll()")
 
     def okay(self):
         """
@@ -125,30 +127,30 @@ class MainWindow(QtGui.QMainWindow):
         defwebviewwidget.setDefs(result.defs)
 
     def fillin(self, word_kanji, word_kana):
-        daijirin = DaijirinDictionary()
+        #daijirin = DaijirinDictionary()
         daijisen = DaijisenDictionary()
-        progressive = ProgressiveDictionary()
-        newcentury = NewCenturyDictionary()
+        #progressive = ProgressiveDictionary()
+        #newcentury = NewCenturyDictionary()
         dicts = [
-                (daijirin, self.ui.daijirindefwebview, self.ui.daijirinwebview, self.ui.daijirinresultwordlabel),
+                #(daijirin, self.ui.daijirindefwebview, self.ui.daijirinwebview, self.ui.daijirinresultwordlabel),
                 (daijisen, self.ui.daijisendefwebview, self.ui.daijisenwebview, self.ui.daijisenresultwordlabel),
-                (progressive, self.ui.progressdefwebview, self.ui.progresswebview, self.ui.progressresultwordlabel),
-                (newcentury, self.ui.newcenturydefwebview, self.ui.newcentywebview, self.ui.newcenturyresultwordlabel),
+                #(progressive, self.ui.progressdefwebview, self.ui.progresswebview, self.ui.progressresultwordlabel),
+                #(newcentury, self.ui.newcenturydefwebview, self.ui.newcentywebview, self.ui.newcenturyresultwordlabel),
                 ]
 
         #self.ui.statusbar.showMessage('Adding defs for %s (%s)...' % (word_kanji, word_kana))
 
         for d, defwebviewwidget, webviewwidget, resultwordlabel in dicts:
             result = d.lookup(word_kanji, word_kana)
-            if d == daijirin:
-                if result.accent:
-                    self.ui.accentlineedit.setText(result.accent)
-                    self.ui.accentlineedit.setEnabled(True)
-                    self.ui.useaccentcheckbox.setEnabled(True)
-                else:
-                    self.ui.accentlineedit.setText("NO ACCENT")
-                    self.ui.accentlineedit.setEnabled(False)
-                    self.ui.useaccentcheckbox.setEnabled(False)
+            #if d == daijirin:
+            #    if result.accent:
+            #        self.ui.accentlineedit.setText(result.accent)
+            #        self.ui.accentlineedit.setEnabled(True)
+            #        self.ui.useaccentcheckbox.setEnabled(True)
+            #    else:
+            #        self.ui.accentlineedit.setText("NO ACCENT")
+            #        self.ui.accentlineedit.setEnabled(False)
+            #        self.ui.useaccentcheckbox.setEnabled(False)
 
             # add webview
             webviewwidget.setUrl(QtCore.QUrl.fromEncoded(result.url))
@@ -167,12 +169,4 @@ class MainWindow(QtGui.QMainWindow):
             resultwordlabeltext = self.abbreviate(resultwordlabeltext)
             resultwordlabel.setText(u'<font color="#555555">%s</font>' % resultwordlabeltext)
 
-            self.addDefinition(defwebviewwidget, result)
-
-    def abbreviate(self, text):
-        """Abbreviate a string."""
-        if len(text) > 20:
-            return u"%s%s%s" % (text[0:8], u"...", text[-8:])
-        else:
-            return text
-
+            #self.addDefinition(defwebviewwidget, result)
