@@ -4,15 +4,15 @@ SOURCES += semiautocards.py
 SOURCES += semiauto/mainwindow.py
 
 # forms (.ui files)
-FORMS += ui/preferences.ui
-FORMS += ui/mainwindow.ui
+FORMS += ui/forms/preferences.ui
+FORMS += ui/forms/mainwindow.ui
 
 # resources (.qrc files)
-RESOURCES += ui/resources.qrc
+RESOURCES += ui/resources/resources.qrc
 
 # translations (.ts files)
-TRANSLATIONS += ui/translation.ts
-TRANSLATIONS += ui/whatwhat.ts
+TRANSLATIONS += ui/translations/ja_JP.ts
+TRANSLATIONS += ui/translations/zh_CN.ts
 
 
 
