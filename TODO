@@ -1,0 +1,4 @@
+
+* Figure out what to do with preferences.  The preferences window is now being
+  open and shown, I just have to figure out how to store preferences.  Maybe
+  look at how yomichan is doing it...
