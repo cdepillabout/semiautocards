@@ -103,3 +103,6 @@ class Anki:
 
     def deckNames(self):
         return self.decks().allNames()
+
+    def getLang(self):
+        return anki.lang.getLang()

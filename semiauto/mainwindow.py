@@ -16,15 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import aqt
+import locale
+import os.path
 
 from PyQt4 import QtGui, QtCore
-from .ui.mainwindowui import MainWindowUI
+from .gen.mainwindow_ui import Ui_MainWindow
 #from .deforderer import DefOrderer
 
 #from dictscrape import DaijirinDictionary, DaijisenDictionary, \
 #        ProgressiveDictionary, NewCenturyDictionary
 from .dictionary import WebYahooDaijisenDict
 from .utils import abbreviate
+
+from semiauto import anki_host
 
 class MainWindow(QtGui.QMainWindow):
 
@@ -35,8 +39,19 @@ class MainWindow(QtGui.QMainWindow):
         self.parent = parent
         self.editor = editor
         self.note = note
-        self.ui = MainWindowUI()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.anki = anki_host.Anki()
+
+        loc = locale.getlocale()
+        print("Locale: %s" % str(loc))
+        print("Anki language: %s" % str(self.anki.getLang()))
+
+        localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "gen", "locale")
+        print("Does locale dir exist? %s" % str(localedir))
+        _qtrans = QtCore.QTranslator()
+        result = _qtrans.load("semiauto_qt_" + self.anki.getLang(), localedir);
+        print("Could load? %s" % str(result))
         #self.fillin(word_kanji, word_kana)
 
     def exit(self):

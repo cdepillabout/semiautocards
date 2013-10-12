@@ -11,8 +11,8 @@ FORMS += ui/forms/mainwindow.ui
 RESOURCES += ui/resources/resources.qrc
 
 # translations (.ts files)
-TRANSLATIONS += ui/translations/ja_JP.ts
-TRANSLATIONS += ui/translations/zh_CN.ts
+TRANSLATIONS += ui/translations/semiauto_qt_ja.ts
+TRANSLATIONS += ui/translations/semiauto_qt_zh_CN.ts
 
 
 
