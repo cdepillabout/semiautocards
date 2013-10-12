@@ -39,22 +39,11 @@ class SemiautoPlugin(object):
         self.anki = anki_host.Anki()
         self.parent = self.anki.window
 
-        loc = locale.getlocale()
-        print("Locale: %s" % str(loc))
-        print("Anki language: %s" % str(self.anki.getLang()))
-
+        # Load our specific translator files.
         localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "semiauto", "gen", "locale")
-        print("Does locale dir exist? %s" % str(localedir))
-        _qtrans = QtCore.QTranslator()
-        result = _qtrans.load("semiauto_qt_" + self.anki.getLang(), localedir);
-        print("Could load? %s" % str(result))
-
-        self.translator = _qtrans
-        #self.anki.window.app.installTranslator(_qtrans)
-        QtGui.QApplication.installTranslator(_qtrans)
-        print("translation of accent: %s" % self.translator.translate("MainWindow", "Accent", None).encode("utf8"))
-        print("translation of accent: %s" % QtGui.QApplication.translate("MainWindow", "Accent", None).encode("utf8"))
-        #self.fillin(word_kanji, word_kana)
+        self.translator = QtCore.QTranslator()
+        self.translator.load("semiauto_qt_" + self.anki.getLang(), localedir);
+        QtGui.QApplication.installTranslator(self.translator)
 
         self.setup()
 

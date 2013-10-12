@@ -39,6 +39,7 @@ class MainWindow(QtGui.QMainWindow):
         self.note = note
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        #self.fillin(word_kanji, word_kana)
 
     def exit(self):
         """
