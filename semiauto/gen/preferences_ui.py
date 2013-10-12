@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/forms/preferences.ui'
 #
-# Created: Sat Oct 12 15:38:14 2013
+# Created: Sat Oct 12 17:33:46 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,15 +23,18 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_preferencesDialog(object):
-    def setupUi(self, preferencesDialog):
-        preferencesDialog.setObjectName(_fromUtf8("preferencesDialog"))
-        preferencesDialog.resize(1069, 604)
-        self.verticalLayout_2 = QtGui.QVBoxLayout(preferencesDialog)
+class Ui_PreferencesWindow(object):
+    def setupUi(self, PreferencesWindow):
+        PreferencesWindow.setObjectName(_fromUtf8("PreferencesWindow"))
+        PreferencesWindow.setWindowModality(QtCore.Qt.WindowModal)
+        PreferencesWindow.resize(800, 600)
+        self.centralwidget = QtGui.QWidget(PreferencesWindow)
+        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        self.groupBox = QtGui.QGroupBox(preferencesDialog)
+        self.groupBox = QtGui.QGroupBox(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -58,7 +61,7 @@ class Ui_preferencesDialog(object):
         self.horizontalLayout_2.addWidget(self.deletepreferencesetbutton)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3.addWidget(self.groupBox)
-        self.groupBox_2 = QtGui.QGroupBox(preferencesDialog)
+        self.groupBox_2 = QtGui.QGroupBox(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
@@ -87,23 +90,30 @@ class Ui_preferencesDialog(object):
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.closebutton = QtGui.QPushButton(preferencesDialog)
+        self.closebutton = QtGui.QPushButton(self.centralwidget)
         self.closebutton.setObjectName(_fromUtf8("closebutton"))
         self.horizontalLayout.addWidget(self.closebutton)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
+        PreferencesWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtGui.QMenuBar(PreferencesWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 19))
+        self.menubar.setObjectName(_fromUtf8("menubar"))
+        PreferencesWindow.setMenuBar(self.menubar)
+        self.statusbar = QtGui.QStatusBar(PreferencesWindow)
+        self.statusbar.setObjectName(_fromUtf8("statusbar"))
+        PreferencesWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(preferencesDialog)
+        self.retranslateUi(PreferencesWindow)
         self.tabWidget.setCurrentIndex(0)
-        QtCore.QObject.connect(self.closebutton, QtCore.SIGNAL(_fromUtf8("clicked()")), preferencesDialog.close)
-        QtCore.QMetaObject.connectSlotsByName(preferencesDialog)
+        QtCore.QMetaObject.connectSlotsByName(PreferencesWindow)
 
-    def retranslateUi(self, preferencesDialog):
-        preferencesDialog.setWindowTitle(_translate("preferencesDialog", "Dialog", None))
-        self.groupBox.setTitle(_translate("preferencesDialog", "GroupBox", None))
-        self.addpreferencesetbutton.setText(_translate("preferencesDialog", "PushButton", None))
-        self.deletepreferencesetbutton.setText(_translate("preferencesDialog", "PushButton", None))
-        self.groupBox_2.setTitle(_translate("preferencesDialog", "GroupBox", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("preferencesDialog", "Tab 1", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("preferencesDialog", "Tab 2", None))
-        self.closebutton.setText(_translate("preferencesDialog", "PushButton", None))
+    def retranslateUi(self, PreferencesWindow):
+        PreferencesWindow.setWindowTitle(_translate("PreferencesWindow", "Window Ttile", None))
+        self.groupBox.setTitle(_translate("PreferencesWindow", "GroupBox", None))
+        self.addpreferencesetbutton.setText(_translate("PreferencesWindow", "PushButton", None))
+        self.deletepreferencesetbutton.setText(_translate("PreferencesWindow", "PushButton", None))
+        self.groupBox_2.setTitle(_translate("PreferencesWindow", "GroupBox", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("PreferencesWindow", "Tab 1", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("PreferencesWindow", "Tab 2", None))
+        self.closebutton.setText(_translate("PreferencesWindow", "PushButton", None))
 

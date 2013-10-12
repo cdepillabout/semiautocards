@@ -49,29 +49,29 @@
     </message>
 </context>
 <context>
-    <name>preferencesDialog</name>
+    <name>PreferencesWindow</name>
     <message>
-        <location filename="ui/forms/preferences.ui" line="14"/>
-        <source>Dialog</source>
+        <location filename="ui/forms/preferences.ui" line="17"/>
+        <source>Window Ttile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/forms/preferences.ui" line="71"/>
+        <location filename="ui/forms/preferences.ui" line="75"/>
         <source>GroupBox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/forms/preferences.ui" line="120"/>
+        <location filename="ui/forms/preferences.ui" line="124"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/forms/preferences.ui" line="87"/>
+        <location filename="ui/forms/preferences.ui" line="91"/>
         <source>Tab 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/forms/preferences.ui" line="92"/>
+        <location filename="ui/forms/preferences.ui" line="96"/>
         <source>Tab 2</source>
         <translation type="unfinished"></translation>
     </message>

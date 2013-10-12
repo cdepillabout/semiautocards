@@ -97,7 +97,7 @@
     <property name="title">
      <string>&amp;Settings</string>
     </property>
-    <addaction name="actionpreferences"/>
+    <addaction name="action_Preferences"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Settings"/>
@@ -108,7 +108,7 @@
     <string>&amp;Quit</string>
    </property>
   </action>
-  <action name="actionpreferences">
+  <action name="action_Preferences">
    <property name="text">
     <string>&amp;Preferences...</string>
    </property>

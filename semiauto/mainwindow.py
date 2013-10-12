@@ -19,6 +19,7 @@ import aqt
 
 from PyQt4 import QtGui, QtCore
 from .gen.mainwindow_ui import Ui_MainWindow
+from .preferences import PreferencesWindow
 #from .deforderer import DefOrderer
 
 #from dictscrape import DaijirinDictionary, DaijisenDictionary, \
@@ -39,7 +40,17 @@ class MainWindow(QtGui.QMainWindow):
         self.note = note
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setupSignals(self.ui)
         #self.fillin(word_kanji, word_kana)
+
+    def setupSignals(self, ui):
+        # open up preferences dialog when preferences is selected
+        QtCore.QObject.connect(ui.action_Preferences, QtCore.SIGNAL("activated()"),
+                lambda: self.launchPreferences())
+
+    def launchPreferences(self):
+        preferences = PreferencesWindow(parent=self)
+        preferences.show()
 
     def exit(self):
         """

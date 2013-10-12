@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/forms/mainwindow.ui'
 #
-# Created: Sat Oct 12 15:38:14 2013
+# Created: Sat Oct 12 17:33:47 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -71,10 +71,10 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.action_Quit = QtGui.QAction(MainWindow)
         self.action_Quit.setObjectName(_fromUtf8("action_Quit"))
-        self.actionpreferences = QtGui.QAction(MainWindow)
-        self.actionpreferences.setObjectName(_fromUtf8("actionpreferences"))
+        self.action_Preferences = QtGui.QAction(MainWindow)
+        self.action_Preferences.setObjectName(_fromUtf8("action_Preferences"))
         self.menu_File.addAction(self.action_Quit)
-        self.menu_Settings.addAction(self.actionpreferences)
+        self.menu_Settings.addAction(self.action_Preferences)
         self.menubar.addAction(self.menu_File.menuAction())
         self.menubar.addAction(self.menu_Settings.menuAction())
         self.accentlabel.setBuddy(self.lineEdit)
@@ -94,5 +94,5 @@ class Ui_MainWindow(object):
         self.menu_File.setTitle(_translate("MainWindow", "&File", None))
         self.menu_Settings.setTitle(_translate("MainWindow", "&Settings", None))
         self.action_Quit.setText(_translate("MainWindow", "&Quit", None))
-        self.actionpreferences.setText(_translate("MainWindow", "&Preferences...", None))
+        self.action_Preferences.setText(_translate("MainWindow", "&Preferences...", None))
 
