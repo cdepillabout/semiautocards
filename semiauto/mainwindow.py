@@ -37,7 +37,7 @@ class MainWindow(QtGui.QMainWindow):
         self.note = note
         self.ui = MainWindowUI()
         self.ui.setupUi(self)
-        self.fillin(word_kanji, word_kana)
+        #self.fillin(word_kanji, word_kana)
 
     def exit(self):
         """
@@ -128,19 +128,19 @@ class MainWindow(QtGui.QMainWindow):
 
     def fillin(self, word_kanji, word_kana):
         #daijirin = DaijirinDictionary()
-        daijisen = DaijisenDictionary()
+        daijisen = WebYahooDaijisenDict()
         #progressive = ProgressiveDictionary()
         #newcentury = NewCenturyDictionary()
         dicts = [
                 #(daijirin, self.ui.daijirindefwebview, self.ui.daijirinwebview, self.ui.daijirinresultwordlabel),
-                (daijisen, self.ui.daijisendefwebview, self.ui.daijisenwebview, self.ui.daijisenresultwordlabel),
+                (daijisen, self.ui.daijisendefwebview, self.ui.daijisenresultwordlabel),
                 #(progressive, self.ui.progressdefwebview, self.ui.progresswebview, self.ui.progressresultwordlabel),
                 #(newcentury, self.ui.newcenturydefwebview, self.ui.newcentywebview, self.ui.newcenturyresultwordlabel),
                 ]
 
         #self.ui.statusbar.showMessage('Adding defs for %s (%s)...' % (word_kanji, word_kana))
 
-        for d, defwebviewwidget, webviewwidget, resultwordlabel in dicts:
+        for d, defwebviewwidget, resultwordlabel in dicts:
             result = d.lookup(word_kanji, word_kana)
             #if d == daijirin:
             #    if result.accent:
@@ -153,7 +153,7 @@ class MainWindow(QtGui.QMainWindow):
             #        self.ui.useaccentcheckbox.setEnabled(False)
 
             # add webview
-            webviewwidget.setUrl(QtCore.QUrl.fromEncoded(result.url))
+            #webviewwidget.setUrl(QtCore.QUrl.fromEncoded(result.url))
 
             # add the resulting word
             resultwordlabeltext = u""

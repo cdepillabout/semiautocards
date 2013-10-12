@@ -10,8 +10,8 @@ function fullpath ()
 }
 
 if [ -f "semiautocards.py" ] ; then
-if [ -d "semiauto" ] ; then
-	ln -sf "$(fullpath semiautocards.py)" "${HOME}/.anki2/addons/semiautocards.py"
-	ln -sf "$(fullpath semiauto)" "${HOME}/.anki2/addons/semiauto"
-fi
+	if [ -d "semiauto" ] ; then
+		ln -sf "$(fullpath semiautocards.py)" "${HOME}/.anki2/addons/semiautocards.py"
+		ln -sf "$(fullpath semiauto)" "${HOME}/.anki2/addons/semiauto"
+	fi
 fi

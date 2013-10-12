@@ -17,3 +17,6 @@
 class Dict(object):
     def __init__(self):
         pass
+
+    def lookup(self, word, kana):
+        return "nothing"
