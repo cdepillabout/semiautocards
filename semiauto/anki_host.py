@@ -71,6 +71,7 @@ class Anki:
             self.window().maybeReset()
 
 
+    @property
     def window(self):
         return aqt.mw
 
