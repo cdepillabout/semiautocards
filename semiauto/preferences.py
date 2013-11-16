@@ -28,7 +28,8 @@ class HasToJsonEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 class PreferenceWriter(object):
-    def __init__(self):
+    def __init__(self, decoder):
+        self.decoder = decoder
         self.settings = self._load()
 
     def _defaultFilename(self):
@@ -37,7 +38,7 @@ class PreferenceWriter(object):
     def _load(self):
         try:
             with open(self._defaultFilename(), 'r') as settingsFile:
-                return json.load(settingsFile, encoding="utf-8" #object_hook=SOMETHING, #cls=SOMETHING
+                return json.load(settingsFile, encoding="utf-8", object_hook=self.decoder, #cls=SOMETHING
                         )
         # if the file doesn't exist, we will get an IO Error
         except IOError:
@@ -66,7 +67,7 @@ class PreferenceWriter(object):
 
 class Preferences(PreferenceWriter):
     def __init__(self):
-        PreferenceWriter.__init__(self)
+        PreferenceWriter.__init__(self, self.decoder)
 
     def get_dict_group_prefs_for_note(self, note):
         model = note.model()
@@ -100,9 +101,19 @@ class Preferences(PreferenceWriter):
 
         return dict_group
 
+    @staticmethod
+    def decoder(dict_):
+        new_dict = {}
+        for key, value in dict_.items():
+            if key == "model_to_dict_group_mappings":
+                new_dict["model_to_dict_group_mappings"] = ModelToGroupMappings.from_json(value)
+            else:
+                new_dict[key] = value
+        return new_dict
+
 class ModelToGroupMappings(object):
-    def __init__(self):
-        self.mappings = {}
+    def __init__(self, mappings={}):
+        self.mappings = mappings
 
     def contains_model(self, model):
         return model["id"] in self.mappings
@@ -111,10 +122,17 @@ class ModelToGroupMappings(object):
         return self.mappings[model["id"]]
 
     def set_dict_group(self, model, dict_group):
+        pprint(dict_group)
         self.mappings[model["id"]] = dict_group.id_
 
     def to_json(self):
         return { "mappings": self.mappings }
+
+    @classmethod
+    def from_json(cls, dict_):
+        assert("mappings" in dict_)
+        return cls(mappings=dict_["mappings"])
+
 
 class DictionaryLayouts(object):
     NONE = 0
