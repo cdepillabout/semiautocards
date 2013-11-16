@@ -122,7 +122,8 @@ class ModelToGroupMappings(object):
         return self.mappings[model["id"]]
 
     def set_dict_group(self, model, dict_group):
-        pprint(dict_group)
+        # TODO: This is an error...
+        pprint.pprint(dict_group)
         self.mappings[model["id"]] = dict_group.id_
 
     def to_json(self):
