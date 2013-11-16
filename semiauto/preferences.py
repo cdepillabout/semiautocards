@@ -17,9 +17,17 @@
 
 import json
 import os
+import pprint
+import uuid
 
-class Preferences(object):
+class HasToJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if hasattr(obj, "to_json"):
+            return obj.to_json()
+        else:
+            return json.JSONEncoder.default(self, obj)
 
+class PreferenceWriter(object):
     def __init__(self):
         self.settings = self._load()
 
@@ -45,15 +53,89 @@ class Preferences(object):
         self.settings[key] = value
 
     def get(self, key, default=None):
-        try:
-            return self.settings[key]
-        except KeyError:
-            return default
+        return self.settings.get(key, default)
 
     def set(self, key, value):
         self.settings[key] = value
+        self.save()
 
     def save(self):
         with open(self._defaultFilename(), 'w') as settingsFile:
             json.dump(self.settings, settingsFile, ensure_ascii=False, encoding="utf-8",
-                    sort_keys=True, indent=4, separators=(',', ': '))
+                    cls=HasToJsonEncoder, sort_keys=True, indent=4, separators=(',', ': '))
+
+class Preferences(PreferenceWriter):
+    def __init__(self):
+        PreferenceWriter.__init__(self)
+
+    def get_dict_group_prefs_for_note(self, note):
+        model = note.model()
+
+        # Get the dictionary groups and model to group mappings from the settings file.
+        # If it doesn't exist, then just return blank dictionary groups and model to group
+        # mappings.
+        dict_groups = self.get("dict_groups", [])
+        model_to_dict_group_mappings = self.get("model_to_dict_group_mappings", ModelToGroupMappings())
+
+        # Look for the dictionary group for this model.  If it exists, just return it.
+        if model_to_dict_group_mappings.contains_model(model):
+            for group in dict_groups:
+                if group.id_ == model_to_dict_group_mappings[model_id]:
+                    return model_to_dict_group_mappings[model_id]
+
+        # If the mapping for this model -> dictionary group id doesn't exist, then
+        # just use the first dictionary group.
+        dict_group = None
+        if len(dict_groups) > 0:
+            dict_group = dict_groups[0]
+        # However, if there are no dictionary group, then create a default one
+        else:
+            dict_group = PreferencesDictionaryGroup()
+            dict_groups.append(dict_group)
+            self.set("dict_groups", dict_groups)
+
+        # Add a mapping from this model to the specified dictionary group.
+        model_to_dict_group_mappings.set_dict_group(model, dict_group)
+        self.set("model_to_dict_group_mappings", model_to_dict_group_mappings)
+
+        return dict_group
+
+class ModelToGroupMappings(object):
+    def __init__(self):
+        self.mappings = {}
+
+    def contains_model(self, model):
+        return model["id"] in self.mappings
+
+    def get_dict_group(self, model):
+        return self.mappings[model["id"]]
+
+    def set_dict_group(self, model, dict_group):
+        self.mappings[model["id"]] = dict_group.id_
+
+    def to_json(self):
+        return { "mappings": self.mappings }
+
+class DictionaryLayouts(object):
+    NONE = 0
+    LONG = 1
+    WIDE = 2
+
+class PreferencesDictionaryGroup(object):
+    def __init__(self, name="Default", id_=uuid.uuid1(), layout=DictionaryLayouts.NONE, tabs=2, dicts_per_tab=4):
+        self.id_ = str(id_)
+        self.layout = layout
+        self.tabs = tabs
+        self.dicts_per_tab = dicts_per_tab
+
+        self.name = name
+
+        self.lookup_fields = ["Vocab", "VocabKana"]
+
+    def to_json(self):
+        return { "id_": self.id_
+               , "layout": self.layout
+               , "tabs": self.tabs
+               , "dicts_per_tab": self.dicts_per_tab
+               , "name": self.dicts_per_tab
+               }

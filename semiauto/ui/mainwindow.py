@@ -39,6 +39,9 @@ class MainWindow(QtGui.QMainWindow):
         self.parent = parent
         self.editor = editor
         self.note = note
+
+        self.dict_group_prefs = self.preferences.get_dict_group_prefs_for_note(note)
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -48,6 +51,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.setupSignals(self.ui)
         self.setupEvents()
+
         #self.fillin(word_kanji, word_kana)
 
     def setupSignals(self, ui):
