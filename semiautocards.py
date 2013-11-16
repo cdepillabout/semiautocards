@@ -38,6 +38,7 @@ class SemiautoPlugin(object):
         self.window = None
         self.anki = anki_host.Anki()
         self.parent = self.anki.window
+        #self.preferences = Preferences()
 
         # Load our specific translator files.
         localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "semiauto", "gen", "locale")
