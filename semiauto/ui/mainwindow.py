@@ -18,35 +18,57 @@
 import aqt
 
 from PyQt4 import QtGui, QtCore
-from .gen.mainwindow_ui import Ui_MainWindow
-from .preferences import PreferencesWindow
+from ..gen.mainwindow_ui import Ui_MainWindow
+from .preferenceswindow import PreferencesWindow
 #from .deforderer import DefOrderer
 
 #from dictscrape import DaijirinDictionary, DaijisenDictionary, \
 #        ProgressiveDictionary, NewCenturyDictionary
-from .dictionary import WebYahooDaijisenDict
-from .utils import abbreviate
+from ..dictionary import WebYahooDaijisenDict
+from ..utils import abbreviate
 
 from semiauto import anki_host
 
 class MainWindow(QtGui.QMainWindow):
 
-    def __init__(self, word_kanji, word_kana, parent=None, editor=None, note=None):
+    def __init__(self, word_kanji, word_kana, parent=None, editor=None, note=None, preferences=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.word_kanji = word_kanji
         self.word_kana = word_kana
+        self.preferences = preferences
         self.parent = parent
         self.editor = editor
         self.note = note
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.resize(self.preferences.get("main_window_size_x", 800), self.preferences.get("main_window_size_y", 600))
+        if "main_window_position_x" in self.preferences and "main_window_position_y" in self.preferences:
+            self.move(self.preferences.get("main_window_position_x"), self.preferences.get("main_window_position_y"))
+
         self.setupSignals(self.ui)
+        self.setupEvents()
         #self.fillin(word_kanji, word_kana)
 
     def setupSignals(self, ui):
         # open up preferences dialog when preferences is selected
-        QtCore.QObject.connect(ui.action_Preferences, QtCore.SIGNAL("activated()"),
-                lambda: self.launchPreferences())
+        #QtCore.QObject.connect(ui.action_Preferences, QtCore.SIGNAL("activated()"),
+        #        self.launchPreferences)
+        ui.action_Preferences.activated.connect(self.launchPreferences)
+
+    def setupEvents(self):
+        self.resizeEvent = self.onResize
+        self.moveEvent = self.onMove
+
+    def onResize(self, event):
+        self.preferences.set("main_window_size_x", event.size().width())
+        self.preferences.set("main_window_size_y", event.size().height())
+        self.preferences.save()
+
+    def onMove(self, event):
+        self.preferences.set("main_window_position_x", event.pos().x())
+        self.preferences.set("main_window_position_y", event.pos().y())
+        self.preferences.save()
 
     def launchPreferences(self):
         preferences = PreferencesWindow(parent=self)

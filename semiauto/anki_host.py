@@ -21,7 +21,8 @@ import aqt
 import anki
 
 
-class Anki:
+class Anki(object):
+
     def addNote(self, deckName, modelName, fields, tags=list()):
         note = self.createNote(deckName, modelName, fields, tags)
         if note is not None:
@@ -31,10 +32,8 @@ class Anki:
             self.startEditing()
             return note.id
 
-
     def canAddNote(self, deckName, modelName, fields):
         return bool(self.createNote(deckName, modelName, fields))
-
 
     def createNote(self, deckName, modelName, fields, tags=list()):
         model = self.models().byName(modelName)
@@ -55,52 +54,41 @@ class Anki:
         if not note.dupeOrEmpty():
             return note
 
-
     def browseNote(self, noteId):
         browser = aqt.dialogs.open('Browser', self.window())
         browser.form.searchEdit.lineEdit().setText('nid:{0}'.format(noteId))
         browser.onSearch()
 
-
     def startEditing(self):
         self.window().requireReset()
-
 
     def stopEditing(self):
         if self.collection():
             self.window().maybeReset()
 
-
     @property
     def window(self):
         return aqt.mw
 
-
     def addUiAction(self, action):
         self.window().form.menuTools.addAction(action)
-
 
     def collection(self):
         return self.window().col
 
-
     def models(self):
         return self.collection().models
 
-
     def modelNames(self):
         return self.models().allNames()
-
 
     def modelFieldNames(self, modelName):
         model = self.models().byName(modelName)
         if model is not None:
             return [field['name'] for field in model['flds']]
 
-
     def decks(self):
         return self.collection().decks
-
 
     def deckNames(self):
         return self.decks().allNames()

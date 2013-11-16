@@ -18,7 +18,7 @@
 import aqt
 
 from PyQt4 import QtGui, QtCore
-from .gen.preferences_ui import Ui_PreferencesWindow
+from ..gen.preferences_ui import Ui_PreferencesWindow
 
 class PreferencesWindow(QtGui.QMainWindow):
 

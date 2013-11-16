@@ -28,17 +28,18 @@ from anki.hooks import wrap
 from aqt.editor import Editor
 from aqt.utils import showCritical
 
-from semiauto import anki_host
-from semiauto.mainwindow import MainWindow
+from semiauto.anki_host import Anki
+from semiauto.preferences import Preferences
+from semiauto.ui.mainwindow import MainWindow
 
 class SemiautoPlugin(object):
     def __init__(self):
 
         self.toolIconVisible = False
         self.window = None
-        self.anki = anki_host.Anki()
+        self.anki = Anki()
         self.parent = self.anki.window
-        #self.preferences = Preferences()
+        self.preferences = Preferences()
 
         # Load our specific translator files.
         localedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "semiauto", "gen", "locale")
@@ -72,7 +73,7 @@ class SemiautoPlugin(object):
         kana = note["VocabKana"]
 
         self.window = MainWindow(kanji, kana, parent=editor.widget,
-                editor=editor, note=note)
+                editor=editor, note=note, preferences=self.preferences)
         self.window.show()
         #if self.window:
         #    self.window.setVisible(True)
